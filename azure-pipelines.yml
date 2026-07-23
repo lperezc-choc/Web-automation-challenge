@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Gradle@3
+  displayName: 'Build and Run Tests'
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'clean test aggregate'
+    options: '-Xmx3072m'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '11'
+    jdkArchitectureOption: 'x64'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Serenity Report'
+  inputs:
+    PathtoPublish: 'target/site/serenity'
+    ArtifactName: 'SerenityReport'

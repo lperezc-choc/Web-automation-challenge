@@ -1,11 +1,13 @@
-🚀 Web Automation Challenge
-📋 Descripción
+
+#🚀 Web Automation Challenge
+
+### 📋 Descripción
 
 Proyecto de automatización web desarrollado como solución al reto técnico utilizando **Serenity BDD, Screenplay Pattern y Cucumber**.
 
 La automatización se realizó sobre SauceDemo, implementando escenarios de autenticación y compra de productos siguiendo buenas prácticas de automatización y Clean Code.
 
-**🛠 Tecnologías**
+### 🛠 Tecnologías
 
 Java 11
 Serenity BDD
@@ -16,26 +18,38 @@ Gradle
 WebDriverManager
 Lombok
 
-**📁 Estructura del Proyecto**
-src
-├── main
-│   └── java
-│       └── com.co.choucair
-│           ├── interactions
-│           ├── models
-│           ├── questions
-│           ├── tasks
-│           └── userinterfaces
-│
-└── test
-    ├── java
-    │   ├── runners
-    │   └── stepdefinitions
-    └── resources
-        ├── features
-        └── serenity.conf
+### 📁 Estructura del Proyecto
 
-**Funcionalidades Automatizadas**
+```text
+Web-automation-challenge
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── com
+│   │           └── co
+│   │               └── choucair
+│   │                   ├── interactions
+│   │                   ├── models
+│   │                   ├── questions
+│   │                   ├── tasks
+│   │                   └── userinterfaces
+│   └── test
+│       ├── java
+│       │   └── com
+│       │       └── co
+│       │           └── choucair
+│       │               ├── runners
+│       │               └── stepdefinitions
+│       └── resources
+│           ├── features
+│           └── serenity.conf
+├── build.gradle
+├── gradlew
+├── settings.gradle
+└── README.md
+```
+
+### Funcionalidades Automatizadas
 
 1. Login
 - Login exitoso
@@ -47,7 +61,7 @@ src
 - Checkout
 - Confirmación de compra
 
-**Historial de desarrollo**
+### Historial de desarrollo
 
 El proyecto fue construido mediante commits incrementales para reflejar el proceso de desarrollo:
 

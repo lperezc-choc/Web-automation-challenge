@@ -1,57 +1,53 @@
 package com.co.choucair.stepdefinitions;
 
 import com.co.choucair.models.UserLoombokData;
-import com.co.choucair.questions.ValidateText;
+import com.co.choucair.questions.InventoryDisplayed;
 import com.co.choucair.tasks.Login;
-import com.co.choucair.utils.KillBrowser;
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.actors.OnStage;
-import net.serenitybdd.screenplay.actors.OnlineCast;
-import net.thucydides.core.webdriver.SerenityWebdriverManager;
+import io.cucumber.java.en.When;
+import net.serenitybdd.annotations.Managed;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import org.openqa.selenium.WebDriver;
 
-import java.io.IOException;
-import java.util.List;
-
-import static com.co.choucair.userinterfaces.SerenityLoginPage.TXT_VALIDATION;
-import static com.co.choucair.utils.GlobalData.*;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.Matchers.containsString;
 
 public class SerenityLoginStepDefinitions {
 
+    @Managed
+    WebDriver browser;
+
+    Actor juan = Actor.named("Juan");
+
     @Before
-    public void setup() {
-        OnStage.setTheStage(new OnlineCast());
+    public void setUp() {
+        juan.can(BrowseTheWeb.with(browser));
     }
 
-    @After
-    public static void CloseDriver() throws IOException, InterruptedException {
-        SerenityWebdriverManager.inThisTestThread().getCurrentDriver().quit();
-        KillBrowser.processes(List.of((SerenityWebdriverManager.inThisTestThread().getCurrentDriverName()).split(":")).get(0));
+    @Given("que el usuario abre SauceDemo")
+    public void queJuanAbreSaucedemo() {
+        browser.get("https://www.saucedemo.com/");
     }
 
-    @Given("the user is on the serenity demo page")
-    public void theUserIsOnTheSerenityDemoPage() {
-        OnStage.theActorCalled(ACTOR).wasAbleTo(Open.url(URL));
-    }
+    @When("ingresa sus credenciales")
+    public void iniciaSesionConUsuarioValido() {
 
-    @When("attempts to log in")
-    public void attemptsToLogIn(DataTable dataTable) {
-        OnStage.theActorInTheSpotlight().attemptsTo(
-                Login.onTheSite(UserLoombokData.setData(dataTable).get(0))
+        UserLoombokData user = new UserLoombokData();
+        user.setUser("standard_user");
+        user.setPass("secret_sauce");
+
+        juan.attemptsTo(
+                Login.onTheSite(user)
         );
     }
 
-    @Then("^validate the text on screen (.*)$")
-    public void validateTheTextOnScreenDashboard(String text) {
-        OnStage.theActorInTheSpotlight().should(seeThat(ValidateText.of(TXT_VALIDATION), containsString(text)));
+    @Then("debe visualizar el inventario")
+    public void debeVisualizarElInventario() {
 
+        juan.should(
+                seeThat(InventoryDisplayed.isVisible())
+        );
     }
-
 }

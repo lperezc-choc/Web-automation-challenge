@@ -1,11 +1,15 @@
-Feature: login test
+Feature: Login en SauceDemo
 
-  Scenario Outline: testing the successful login
-    Given the user is on the serenity demo page
-    When attempts to log in
-      | user   | pass   |
-      | <user> | <pass> |
-    Then validate the text on screen <message>
-    Examples:
-      | user  | pass     | message   |
-      | admin | serenity | Dashboard |
+  Como usuario
+  Quiero iniciar sesión
+  Para ingresar al inventario
+
+  @login
+
+  Scenario: Login exitoso
+
+    Given que el usuario abre SauceDemo
+
+    When ingresa sus credenciales
+
+    Then debe visualizar el inventario

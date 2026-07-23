@@ -2,7 +2,6 @@ package com.co.choucair.models;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,8 @@ import java.util.Map;
 
 public class UserLoombokData {
 
-    String user;
-    String pass;
+    String username;
+    String password;
 
     public static List<UserLoombokData> setData(DataTable table){
         List<UserLoombokData> data = new ArrayList<>();
@@ -23,18 +22,18 @@ public class UserLoombokData {
     }
 
     public String getUser() {
-        return user;
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String username) {
+        this.username = username;
     }
 
     public String getPass() {
-        return pass;
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPass(String password) {
+        this.password = password;
     }
 }

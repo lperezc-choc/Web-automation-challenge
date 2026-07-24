@@ -5,17 +5,16 @@ pool:
   name: Default
 
 steps:
-- task: Gradle@3
+- script: |
+    chmod +x gradlew
+    ./gradlew clean test aggregate
   displayName: 'Build and Run Tests'
+
+- task: PublishTestResults@2
   inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'clean test aggregate'
-    options: '-Xmx3072m'
-    publishJUnitResults: true
+    testResultsFormat: 'JUnit'
     testResultsFiles: '**/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '11'
-    jdkArchitectureOption: 'x64'
+    failTaskOnFailedTests: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Serenity Report'

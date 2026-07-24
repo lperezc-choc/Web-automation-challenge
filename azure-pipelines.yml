@@ -1,0 +1,25 @@
+trigger:
+  - main
+
+pool:
+  name: Default
+
+steps:
+  - checkout: self
+
+  - script: |
+      chmod +x gradlew
+      ./gradlew clean test aggregate
+    displayName: 'Run Serenity Tests'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/TEST-*.xml'
+    condition: succeededOrFailed()
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'target'
+      ArtifactName: 'SerenityReport'
+    condition: succeededOrFailed()

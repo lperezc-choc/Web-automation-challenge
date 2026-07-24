@@ -5,9 +5,13 @@ pool:
   name: Default
 
 steps:
+- checkout: self
+
 - script: |
+    echo "JAVA_HOME=$JAVA_HOME"
+    java -version
     chmod +x gradlew
-    ./gradlew clean test aggregate
+    ./gradlew clean test aggregate --stacktrace --info
   displayName: 'Build and Run Tests'
 
 - task: PublishTestResults@2
